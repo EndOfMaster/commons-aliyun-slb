@@ -21,8 +21,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.aliyun:aliyun-java-sdk-core:3.5.0'
-    compile 'com.aliyun:aliyun-java-sdk-slb:3.2.0'
+    compile 'com.aliyun:aliyun-java-sdk-core:3.7.0'
+    compile 'com.aliyun:aliyun-java-sdk-slb:3.2.9'
     compile 'org.slf4j:slf4j-api:1.7.21'
 
     testCompile 'junit:junit:4.12'

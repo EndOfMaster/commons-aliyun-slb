@@ -23,13 +23,8 @@ public class CreateHttpsListenerRequest extends CreateHttpListenerRequest {
         request.setLoadBalancerId(slbId);
         request.setListenerPort(listenerPort);
         request.setBackendServerPort(serverPort);
-        request.setBandwidth(-1);       //不限制
-        request.setStickySession(stickySession ? "on" : "off");
-        request.setStickySessionType(stickySessionType);
-        request.setCookieTimeout(cookieTimeout);
         request.setHealthCheck(healthCheck ? "on" : "off");
-        request.setHealthCheckDomain(healthDomain);
-        request.setHealthCheckConnectPort(healthProt);
+        request.setHealthCheckConnectPort(healthPort);
         request.setHealthCheckURI(healthPath);
         request.setHealthyThreshold(failureTimes);
         request.setUnhealthyThreshold(successTimes);

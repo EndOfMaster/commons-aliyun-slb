@@ -16,14 +16,14 @@ public class AliyunSlb {
 
     private final String regionId;
     private final String accessKeyId;
-    private final String accessKeyecret;
+    private final String accessKeySecret;
     private final IAcsClient client;
 
-    public AliyunSlb(String regionId, String accessKeyId, String accessKeyecret) {
+    public AliyunSlb(String regionId, String accessKeyId, String accessKeySecret) {
         this.regionId = regionId;
         this.accessKeyId = accessKeyId;
-        this.accessKeyecret = accessKeyecret;
-        this.client = new DefaultAcsClient(DefaultProfile.getProfile(regionId, accessKeyId, accessKeyecret));
+        this.accessKeySecret = accessKeySecret;
+        this.client = new DefaultAcsClient(DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret));
     }
 
     public CreateLoadBalancerHTTPListenerResponse addHttpListener(CreateHttpListenerRequest request) throws ClientException {
@@ -60,7 +60,7 @@ public class AliyunSlb {
         return accessKeyId;
     }
 
-    public String getAccessKeyecret() {
-        return accessKeyecret;
+    public String getAccessKeySecret() {
+        return accessKeySecret;
     }
 }
