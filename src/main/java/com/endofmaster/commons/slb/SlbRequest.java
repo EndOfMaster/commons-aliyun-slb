@@ -3,6 +3,5 @@ package com.endofmaster.commons.slb;
 /**
  * @author ZM.Wang
  */
-public class AliyunSlb {
-
+public class SlbRequest {
 }
