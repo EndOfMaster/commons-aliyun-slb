@@ -23,7 +23,6 @@ repositories {
 dependencies {
     compile 'com.aliyun:aliyun-java-sdk-core:3.7.0'
     compile 'com.aliyun:aliyun-java-sdk-slb:3.2.9'
-    compile 'org.apache.httpcomponents:httpclient:4.5.9'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.slf4j:slf4j-jdk14:1.7.25'
