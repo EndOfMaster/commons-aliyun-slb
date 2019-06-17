@@ -9,6 +9,10 @@ public abstract class SlbResponse {
 
     @JsonProperty("RequestId")
     private String requestId;
+    @JsonProperty("Code")
+    private String code;
+    @JsonProperty("Message")
+    private String message;
 
     public String getRequestId() {
         return requestId;

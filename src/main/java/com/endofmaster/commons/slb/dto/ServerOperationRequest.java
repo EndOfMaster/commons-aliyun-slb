@@ -1,5 +1,6 @@
 package com.endofmaster.commons.slb.dto;
 
+import com.endofmaster.commons.slb.SlbClient;
 import com.endofmaster.commons.slb.SlbException;
 import com.endofmaster.commons.slb.SlbRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,7 +33,7 @@ public abstract class ServerOperationRequest<T extends ServerOperationResponse> 
             Map<String, String> params = super.buildParams();
             params.put("RegionId", regionId);
             params.put("LoadBalancerId", LoadBalancerId);
-            params.put("BackendServers", MAPPER.writeValueAsString(backendServers));
+            params.put("BackendServers", SlbClient.percentEncode(MAPPER.writeValueAsString(backendServers)));
             return params;
         } catch (JsonProcessingException | UnsupportedEncodingException e) {
             throw new SlbException("构建请求数据错误", e);

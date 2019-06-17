@@ -9,9 +9,9 @@ import java.util.Collections;
 
 public class AliyunSlbTest {
 
-    private final static String SLB_ID = "lb-2ze9u6pdh7jbslvp4ba42";
+    private final static String SLB_ID = "lb-2ze22ot1jj79xoz049aph";
 
-    private final SlbClient client = new SlbClient("", "");
+    private final SlbClient client = new SlbClient("VAZSGZwX16yoLtbU", "qi5jrXwQ7VYzgMD1BMSjBl0gFG9COo");
 
     @Test
     public void addServer() {

@@ -12,6 +12,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,7 +38,7 @@ public class SlbClient {
     private final Logger logger = LoggerFactory.getLogger(SlbClient.class);
 
     private final static String URL = "https://slb.aliyuncs.com";
-    public  final static ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    public final static ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final String key;
     private final String secret;
@@ -52,30 +54,31 @@ public class SlbClient {
     public <T extends SlbResponse> T execute(SlbRequest<T> request) {
         try {
             Map<String, String> params = request.buildParams();
-            params.put("Signature", sign(params, request.getAction()));
-            RequestBuilder requestBuilder = RequestBuilder.create("GET").setUri(URL);
-            List<NameValuePair> nameValuePairs = params.keySet().stream()
-                    .map(key -> new BasicNameValuePair(key, params.get(key))).collect(Collectors.toList());
-            HttpEntity httpEntity = new UrlEncodedFormEntity(nameValuePairs, Charset.forName(CHARSET));
-            requestBuilder.setEntity(httpEntity);
-            HttpResponse response = httpClient.execute(requestBuilder.build());
+            String url = URL + "?" + PresignUtils.createLinkString(params, false) + "&Signature=" + sign(params);
+            logger.info("请求参数串：" + url);
+            HttpGet get = new HttpGet(url);
+//            RequestBuilder requestBuilder = RequestBuilder.create("GET").setUri(URL);
+//            List<NameValuePair> nameValuePairs = params.keySet().stream()
+//                    .map(key -> new BasicNameValuePair(key, params.get(key))).collect(Collectors.toList());
+//            HttpEntity httpEntity = new UrlEncodedFormEntity(nameValuePairs, Charset.forName(CHARSET));
+//            requestBuilder.setEntity(httpEntity);
+            HttpResponse response = httpClient.execute(get);
             String json = StreamUtils.copyToString(response.getEntity().getContent(), Charset.forName(CHARSET));
-            logger.debug("阿里云SLB请求结果json：" + json);
+            logger.info("阿里云SLB请求结果json：" + json);
             return MAPPER.readValue(json, request.responseClass());
         } catch (IOException e) {
             throw new SlbException(e);
         }
     }
 
-    private String sign(Map<String, String> params, String action) throws UnsupportedEncodingException {
+    private String sign(Map<String, String> params) throws UnsupportedEncodingException {
         params.put("AccessKeyId", key);
-        params.put("Action", action);
         String signStr = PresignUtils.createLinkString(params, true);
         signStr = "GET&" + percentEncode("/") + "&" + percentEncode(signStr);
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, secret).hmacHex(signStr);
+        return percentEncode(Base64.getEncoder().encodeToString(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, secret).hmac(signStr)));
     }
 
-    static String percentEncode(String value) throws UnsupportedEncodingException {
+    public static String percentEncode(String value) throws UnsupportedEncodingException {
         return value != null ? URLEncoder.encode(value, CHARSET).replace("+", "%20").replace("*", "%2A").replace("%7E", "~") : "";
     }
 
