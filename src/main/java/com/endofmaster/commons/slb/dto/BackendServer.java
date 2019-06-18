@@ -1,6 +1,5 @@
 package com.endofmaster.commons.slb.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author ZM.Wang
@@ -8,11 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class BackendServer {
 
-    @JsonProperty("ServerId")
     private String serverId;    //服务器id
-    @JsonProperty("Weight")
     private String weight;      //权重
-    @JsonProperty("Type")
     private String type;        //类型，ecs，eni(弹性网卡)
 
     public BackendServer(String serverId, String weight, String type) {

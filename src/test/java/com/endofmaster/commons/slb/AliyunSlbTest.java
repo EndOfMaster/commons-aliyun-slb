@@ -12,7 +12,11 @@ import org.junit.Test;
 public class AliyunSlbTest {
 
     private final static String SLB_ID = "lb-2ze22ot1jj79xoz049aph";
-    private final AliyunSlb aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "**************");
+    private final AliyunSlb aliyunSlb;
+
+    public AliyunSlbTest() throws ClientException {
+        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "**************");
+    }
 
     @Test
     public void createHttpListener() throws ClientException {
