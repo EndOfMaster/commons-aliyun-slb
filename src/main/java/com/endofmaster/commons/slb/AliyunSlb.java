@@ -10,6 +10,7 @@ import com.aliyuncs.slb.model.v20140515.CreateLoadBalancerHTTPSListenerResponse;
 import com.aliyuncs.slb.model.v20140515.CreateLoadBalancerTCPListenerResponse;
 import com.aliyuncs.slb.model.v20140515.DeleteLoadBalancerListenerRequest;
 import com.aliyuncs.slb.model.v20140515.DeleteLoadBalancerListenerResponse;
+import com.aliyuncs.slb.model.v20140515.RemoveBackendServersResponse;
 import com.aliyuncs.slb.model.v20140515.StartLoadBalancerListenerRequest;
 import com.aliyuncs.slb.model.v20140515.StartLoadBalancerListenerResponse;
 import com.endofmaster.commons.slb.dto.CreateHttpListenerRequest;
@@ -62,6 +63,10 @@ public class AliyunSlb {
 
     public AddBackendServersResponse addServer(ServersOperationRequest request) throws ClientException {
         return client.getAcsResponse(request.getAddReq());
+    }
+
+    public RemoveBackendServersResponse removeServer(ServersOperationRequest request) throws ClientException {
+        return client.getAcsResponse(request.getRemoveReq());
     }
 
     public String getRegionId() {

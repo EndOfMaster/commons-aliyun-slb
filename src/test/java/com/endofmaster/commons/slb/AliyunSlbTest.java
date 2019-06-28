@@ -15,7 +15,7 @@ public class AliyunSlbTest {
     private final AliyunSlb aliyunSlb;
 
     public AliyunSlbTest() throws ClientException {
-        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "**************");
+        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "***************");
     }
 
     @Test
@@ -51,5 +51,12 @@ public class AliyunSlbTest {
         ServersOperationRequest request = new ServersOperationRequest(SLB_ID);
         request.addServer(new BackendServer("i-2zebslw1q067n115dip1", "100", "ecs"));
         aliyunSlb.addServer(request);
+    }
+
+    @Test
+    public void removeServer() throws ClientException {
+        ServersOperationRequest request = new ServersOperationRequest(SLB_ID);
+        request.addServer(new BackendServer("i-2zebslw1q067n115dip1", "100", "ecs"));
+        aliyunSlb.removeServer(request);
     }
 }
