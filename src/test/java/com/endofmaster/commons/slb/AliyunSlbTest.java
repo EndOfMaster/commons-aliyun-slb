@@ -4,7 +4,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.endofmaster.commons.slb.dto.BackendServer;
 import com.endofmaster.commons.slb.dto.CreateHttpListenerRequest;
 import com.endofmaster.commons.slb.dto.CreateHttpsListenerRequest;
-import com.endofmaster.commons.slb.dto.CreateTcpListenerRequest;
+import com.endofmaster.commons.slb.dto.EditTcpListenerRequest;
 import com.endofmaster.commons.slb.dto.ServersOperationRequest;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class AliyunSlbTest {
     private final AliyunSlb aliyunSlb;
 
     public AliyunSlbTest() throws ClientException {
-        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "***************");
+        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "qi5jrXwQ7VYzgMD1BMSjBl0gFG9COo");
     }
 
     @Test
@@ -36,10 +36,16 @@ public class AliyunSlbTest {
 
     @Test
     public void createTcpListener() throws ClientException {
-        CreateTcpListenerRequest request = new CreateTcpListenerRequest(SLB_ID, 80, 8080);
+        EditTcpListenerRequest request = new EditTcpListenerRequest(SLB_ID, 80, 8080);
         aliyunSlb.addTcpListener(request);
         aliyunSlb.startListener(SLB_ID, 80);
     }
+
+//    @Test
+//    public void updateTcpListener() throws ClientException {
+//        EditTcpListenerRequest request = new EditTcpListenerRequest(SLB_ID, 80, 8081);
+//        aliyunSlb.updateListener(request);
+//    }
 
     @Test
     public void delListener() throws ClientException {
@@ -59,4 +65,5 @@ public class AliyunSlbTest {
         request.addServer(new BackendServer("i-2zebslw1q067n115dip1", "100", "ecs"));
         aliyunSlb.removeServer(request);
     }
+
 }

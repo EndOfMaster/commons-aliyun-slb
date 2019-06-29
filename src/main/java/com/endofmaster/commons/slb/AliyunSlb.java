@@ -4,18 +4,10 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.slb.model.v20140515.AddBackendServersResponse;
-import com.aliyuncs.slb.model.v20140515.CreateLoadBalancerHTTPListenerResponse;
-import com.aliyuncs.slb.model.v20140515.CreateLoadBalancerHTTPSListenerResponse;
-import com.aliyuncs.slb.model.v20140515.CreateLoadBalancerTCPListenerResponse;
-import com.aliyuncs.slb.model.v20140515.DeleteLoadBalancerListenerRequest;
-import com.aliyuncs.slb.model.v20140515.DeleteLoadBalancerListenerResponse;
-import com.aliyuncs.slb.model.v20140515.RemoveBackendServersResponse;
-import com.aliyuncs.slb.model.v20140515.StartLoadBalancerListenerRequest;
-import com.aliyuncs.slb.model.v20140515.StartLoadBalancerListenerResponse;
+import com.aliyuncs.slb.model.v20140515.*;
 import com.endofmaster.commons.slb.dto.CreateHttpListenerRequest;
 import com.endofmaster.commons.slb.dto.CreateHttpsListenerRequest;
-import com.endofmaster.commons.slb.dto.CreateTcpListenerRequest;
+import com.endofmaster.commons.slb.dto.EditTcpListenerRequest;
 import com.endofmaster.commons.slb.dto.ServersOperationRequest;
 
 /**
@@ -43,9 +35,13 @@ public class AliyunSlb {
         return client.getAcsResponse(request.getAliyunHttpsReq());
     }
 
-    public CreateLoadBalancerTCPListenerResponse addTcpListener(CreateTcpListenerRequest request) throws ClientException {
-        return client.getAcsResponse(request.getAliyunReq());
+    public CreateLoadBalancerTCPListenerResponse addTcpListener(EditTcpListenerRequest request) throws ClientException {
+        return client.getAcsResponse(request.getCreateReq());
     }
+
+//    public SetLoadBalancerTCPListenerAttributeResponse updateListener(EditTcpListenerRequest request) throws ClientException {
+//        return client.getAcsResponse(request.getUpdateReq());
+//    }
 
     public StartLoadBalancerListenerResponse startListener(String slbId, int serverPort) throws ClientException {
         StartLoadBalancerListenerRequest request = new StartLoadBalancerListenerRequest();
