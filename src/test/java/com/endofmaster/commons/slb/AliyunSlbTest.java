@@ -11,11 +11,11 @@ import org.junit.Test;
 
 public class AliyunSlbTest {
 
-    private final static String SLB_ID = "lb-2ze22ot1jj79xoz049aph";
+    private final static String SLB_ID = "lb-2ze0uhfmk59b3rbfchnz5";
     private final AliyunSlb aliyunSlb;
 
     public AliyunSlbTest() throws ClientException {
-        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "qi5jrXwQ7VYzgMD1BMSjBl0gFG9COo");
+        this.aliyunSlb = new AliyunSlb("cn-beijing", "VAZSGZwX16yoLtbU", "*****");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class AliyunSlbTest {
     @Test
     public void addServer() throws ClientException {
         ServersOperationRequest request = new ServersOperationRequest(SLB_ID);
-        request.addServer(new BackendServer("i-2zebslw1q067n115dip1", "100", "ecs"));
+        request.addServer(new BackendServer("eni-2ze550t5mlogx3zq7qtu", "100", "eni"));
         aliyunSlb.addServer(request);
     }
 
