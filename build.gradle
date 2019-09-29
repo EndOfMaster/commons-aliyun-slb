@@ -17,6 +17,7 @@ apply plugin: 'com.jfrog.bintray'
 repositories {
     mavenLocal()
     jcenter()
+    mavenCentral()
     maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
 }
 
@@ -25,7 +26,8 @@ dependencies {
     compile 'com.aliyun:aliyun-java-sdk-slb:3.2.9'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.slf4j:slf4j-jdk14:1.7.25'
+//    testCompile 'org.slf4j:slf4j-jdk14:1.7.26'
+
 }
 
 bintray {
