@@ -6,7 +6,7 @@ import com.endofmaster.commons.slb.dto.CreateHttpListenerRequest;
 import com.endofmaster.commons.slb.dto.CreateHttpsListenerRequest;
 import com.endofmaster.commons.slb.dto.EditTcpListenerRequest;
 import com.endofmaster.commons.slb.dto.ServersOperationRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 public class AliyunSlbTest {
